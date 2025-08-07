@@ -14,18 +14,15 @@ import {
 } from "@/components/ui/select";
 import Upload from "@/components/Upload";
 import { useActionState, useState } from "react";
-// import { createMenuAction } from "@/action/create-menu";
 import Link from "next/link";
-import { create } from "domain";
 import { createMenuAction } from "@/actions/create-menu";
-
 const categories = ["Pizza", "Pasta", "Salad", "Dessert", "Drink"];
 const page = () => {
-  const [formState, action, isPending] = useActionState(createMenuAction, {errors:{}})
+  const [formState, FormAction, isPending] = useActionState(createMenuAction, {errors:{}})
   const [imageUrl, setImageUrl] = useState<string | null>(null)
     const handleAction = (formdata : FormData) =>{
-       formdata.append("image", imageUrl || "");
-       return action(formdata);
+       formdata.append("imageUrl", imageUrl || "");
+       return FormAction(formdata);
     }
   return (
 <div className="min-h-screen flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white">
