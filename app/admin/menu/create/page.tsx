@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,16 +13,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Upload from "@/components/Upload";
-// import { useActionState, useState } from "react";
+import { useActionState, useState } from "react";
 // import { createMenuAction } from "@/action/create-menu";
 import Link from "next/link";
+import { create } from "domain";
+import { createMenuAction } from "@/actions/create-menu";
 
 const categories = ["Pizza", "Pasta", "Salad", "Dessert", "Drink"];
 const page = () => {
-    const handleAction = "hello"
-    const imageUrl = null;
-    const formState = {}
-    const isPending = false;
+  const [formState, action, isPending] = useActionState(createMenuAction, {errors:{}})
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+    const handleAction = (formdata : FormData) =>{
+       formdata.append("image", imageUrl || "");
+       return action(formdata);
+    }
   return (
 <div className="min-h-screen flex items-start justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white">
       <Card className="w-full max-w-xl">
@@ -39,9 +44,9 @@ const page = () => {
             <div className="space-y-2">
               <Label htmlFor="name">Item Name</Label>
               <Input name="name" placeholder="e.g. Margherita Pizza" />
-              {/* {formState.errors.name && (
+              {formState.errors.name && (
                 <p className="text-red-500 text-sm">{formState.errors.name}</p>
-              )} */}
+              )}
             </div>
 
             {/* Description */}
@@ -51,11 +56,11 @@ const page = () => {
                 name="description"
                 placeholder="Brief description of the item"
               />
-              {/* {formState.errors.description && (
+              {formState.errors.description && (
                 <p className="text-red-500 text-sm">
                   {formState.errors.description}
                 </p>
-              )} */}
+              )}
             </div>
 
             {/* Price and Category */}
@@ -68,11 +73,11 @@ const page = () => {
                   step="0.01"
                   placeholder="0.00"
                 />
-                {/* {formState.errors.price && (
+                {formState.errors.price && (
                   <p className="text-red-500 text-sm">
                     {formState.errors.price}
                   </p>
-                )} */}
+                )}
               </div>
 
               <div className="space-y-2">
@@ -90,18 +95,18 @@ const page = () => {
                   </SelectContent>
                 </Select>
 
-                {/* {formState.errors.category && (
+                {formState.errors.category && (
                   <p className="text-red-500 text-sm">
                     {formState.errors.category}
                   </p>
-                )} */}
+                )}
               </div>
             </div>
 
             {/* Upload */}
             <div className="space-y-2">
-              {/* <Upload setImageUrl={setImageUrl} /> */}
-              <Upload/>
+              <Upload setImageUrl={setImageUrl} />
+              {/* <Upload/> */}
             </div>
 
             {/* Submit */}

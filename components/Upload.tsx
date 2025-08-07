@@ -9,8 +9,12 @@ import {
 } from "@imagekit/next";
 import { useRef, useState } from "react";
 
+type UploadsProps = {
+    setImageUrl : (imageUrl: string) => void;
+}
+
 // UploadExample component demonstrates file uploading using ImageKit's Next.js SDK.
-const Upload = () => {
+const Upload = ({setImageUrl}:UploadsProps) => {
     // State to keep track of the current upload progress (percentage)
     const [progress, setProgress] = useState(0);
 
@@ -99,6 +103,9 @@ const Upload = () => {
                 abortSignal: abortController.signal,
             });
             console.log("Upload response:", uploadResponse);
+            if(uploadResponse.url){
+                setImageUrl(uploadResponse.url);
+            }
         } catch (error) {
             // Handle specific error types provided by the ImageKit SDK.
             if (error instanceof ImageKitAbortError) {
