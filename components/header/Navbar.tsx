@@ -14,8 +14,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useStore } from "@/store/store";
 const Navbar = () => {
-  const cart = [1, 2, 3, 4, 5];
+  const cart = useStore((store)=>store.cart);
   const [menuOpen, setMenuOpen] = useState(true);
   const { setTheme } = useTheme();
   // if (!mounted) return null;

@@ -7,6 +7,8 @@ import { ChevronRight, Clock, Leaf, Utensils } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import MenuPreview from "@/components/MenuPreview";
+import { MenuPreviewSkeleton } from "@/components/MenuPreviewSkeleton";
 
 export default function Home() {
   return (
@@ -76,9 +78,9 @@ export default function Home() {
         </section>
 
         {/* Menu Preview Section */}
-         {/* <Suspense fallback={<MenuPreviewSkeleton/>}> */}
-          {/* <MenuPreview/> */}
-         {/* </Suspense> */}
+         <Suspense fallback={<MenuPreviewSkeleton/>}>
+          <MenuPreview/>
+         </Suspense>
         {/* Testimonials Section */}
         <Testimonial/>
 

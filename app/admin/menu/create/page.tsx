@@ -102,6 +102,7 @@ const page = () => {
 
             {/* Upload */}
             <div className="space-y-2">
+              {/* <button>HI</button> */}
               <Upload setImageUrl={setImageUrl} />
               {/* <Upload/> */}
             </div>
