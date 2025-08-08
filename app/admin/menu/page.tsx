@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import { prisma } from "@/lib/prisma";
 import DeleteMenuButton from "@/components/DeleteMenuButton";
+import UpdateMenu from "@/components/admin/UpdateMenu";
 
 const page = async() => {
   const menuItems = await prisma.menuItem.findMany({
@@ -47,7 +48,7 @@ const page = async() => {
                     <TableCell>${item.price.toFixed(2)}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex justify-end space-x-2">
-                        {/* <UpdateMenu item={item} /> */}
+                         <UpdateMenu item = {item}/>
                         <DeleteMenuButton id={item.id} />
                       </div>
                     </TableCell>
